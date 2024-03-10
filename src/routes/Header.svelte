@@ -13,6 +13,7 @@
 		<NavLi href="/" active={true}>Home</NavLi>
 		<NavLi href="/teams">Teams</NavLi>
 		<NavLi href="/players">Players</NavLi>
+		<NavLi href="/rounds">Player Rounds</NavLi>
 	</NavUl>
 </Navbar>
 
