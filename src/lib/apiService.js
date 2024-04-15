@@ -8,11 +8,18 @@ const fetchMethod = (method) => async (endpoint, params = {}, options = {}) => {
 
     const finalUrl = queryString ? `${url}?${queryString}` : url;
 
-    // Set the HTTP method in the options
-    options.method = method;
+
+    const defaultOptions = {
+        method: method,
+        credentials: 'include',  // or 'same-origin' if your API is on the same domain
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        ...options
+    };
 
     try {
-        const response = await fetch(finalUrl, options);
+        const response = await fetch(finalUrl, defaultOptions);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
