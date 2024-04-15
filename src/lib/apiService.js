@@ -4,6 +4,7 @@ const fetchMethod = (method) => async (endpoint, params = {}, options = {}) => {
 
     // Append the query string to the URL if it's not empty
     const url = `http://127.0.0.1:3000/api/${endpoint}`; // Your Rails API base URL
+    // const url = `https://fantasynrlbe.onrender.com/api/${endpoint}`; // Your Rails API base URL
 
     const finalUrl = queryString ? `${url}?${queryString}` : url;
 
