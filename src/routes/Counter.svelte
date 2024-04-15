@@ -1,6 +1,5 @@
 <script>
 	import { spring } from 'svelte/motion';
-	import { getTeams } from '../lib/apiService.js';
 
 	let count = 0;
 
@@ -10,8 +9,6 @@
 
 	async function decrease() {
 		count -= 1;
-		let teams = await getTeams();
-		console.log(teams)
 	}
 
 	function modulo(n, m) {
