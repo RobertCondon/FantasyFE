@@ -3,7 +3,7 @@
     import { fetchGet } from '$lib/apiService.js';
     import { Card, Select, Label, Table, TableBody, TableHead, TableHeadCell, Search } from 'flowbite-svelte';
     import { writable } from 'svelte/store';
-    import PlayerRoundRow from "./PlayerRoundRow.svelte";
+    import PlayerRoundRow from "../PlayerRoundRow.svelte";
     let currentPositions = [{
         value: "17",
         name: "All 17 (Starting and Bench)"
@@ -32,7 +32,7 @@
     let searchTerm = '';
     let teams = [];
     let year = 2024
-    let round = 1
+    let round = 6
     let rounds = [];
     let players = [];
 
