@@ -5,12 +5,17 @@
     export let playerRounds = [];
     export let player;
     let modalActive = true;
+    const player_img = "https://fantasy.nrl.com/assets/media/players/nrl/509565_100.webp";
 
 </script>
 <Modal bind:open={modalActive} autoclose outsideclose size="xl">
     <header>
         <div style="display: flex">
-            <img src={player.image_url} alt={player.name} style="width: 100px; height: 66px; margin-right: 10px"/>
+            {#if player.image_url}
+                <img src={player.image_url} alt={player.name}  style="width: 100px; height: 66px; margin-right: 10px"/>
+            {:else}
+                <img src={player_img} alt={player.name}  style="width: 100px; height: 66px; margin-right: 10px"/>
+            {/if}
             <Heading tag="h3" customSize="text-5xl font-extrabold" align="center">
                 {player.name} <Secondary class="ms-2">{player.current_position} ({player.position})</Secondary>
             </Heading>

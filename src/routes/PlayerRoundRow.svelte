@@ -2,10 +2,19 @@
     import { TableBodyCell, TableBodyRow } from 'flowbite-svelte';
 
     export let round;
+    const player_img = "https://fantasy.nrl.com/assets/media/players/nrl/509565_100.webp";
 </script>
 
 <TableBodyRow>
-    <TableBodyCell tdClass="w-2"><img src={round.player.image_url} alt={round.player.name} style="width: 60px; height: 40px;"/></TableBodyCell>
+    <TableBodyCell tdClass="w-2">
+        <div style="width: 60px">
+            {#if round.player.image_url}
+                <img src={round.player.image_url} alt={round.player.name}  style="width: 60px; height: 40px;"/>
+            {:else}
+                <img src={player_img} alt={round.player.name} style="width: 60px; height: 40px;"/>
+            {/if}
+        </div>
+    </TableBodyCell>
     <TableBodyCell tdClass="w-2">{round.player.name}</TableBodyCell>
     <TableBodyCell tdClass="px-2">{round.price}</TableBodyCell>
     <TableBodyCell tdClass="px-2">{round.position}</TableBodyCell>

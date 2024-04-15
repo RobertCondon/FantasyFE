@@ -6,7 +6,7 @@
     export let player;
     let openRow = false;
     let playerRounds = []
-    let player_img = 'https://rugbyimages.statsperform.com/Player Profile Headshots/111/2024/500003/ELLIOTT, Adam NRL 2024 GP0007-COPY.png?center: '
+    let player_img = 'https://fantasy.nrl.com/assets/media/players/nrl/509565_100.webp'
 
     function toggleRow() {
         openRow = !openRow;
@@ -24,7 +24,13 @@
 </script>
 
 <TableBodyRow on:click={() => toggleRow()}>
-    <TableBodyCell><img src={player.image_url} alt={player.name} style="width: 60px; height: 40px;"/></TableBodyCell>
+    <TableBodyCell>
+    {#if player.image_url}
+        <img src={player.image_url} alt={player.name} style="width: 60px; height: 40px;"/>
+    {:else}
+        <img src={player_img} alt={player.name} style="width: 60px; height: 40px;"/>
+    {/if}
+    </TableBodyCell>
     <TableBodyCell>{player.name}</TableBodyCell>
     <TableBodyCell>{player.cost}</TableBodyCell>
     <TableBodyCell>{player.owned_by}%</TableBodyCell>
