@@ -4,6 +4,7 @@
 
     export let playerRounds = [];
     export let player;
+    const playerView = true
     let modalActive = true;
     const player_img = "https://fantasy.nrl.com/assets/media/players/nrl/509565_100.webp";
 
@@ -27,8 +28,8 @@
                 Player Rounds
             </caption>
             <TableHead theadClass="sticky top-0">
-                <TableHeadCell padding="w-2"></TableHeadCell>
-                <TableHeadCell padding="w-2">Player Name</TableHeadCell>
+                <TableHeadCell padding="px-2">Year</TableHeadCell>
+                <TableHeadCell padding="px-2">Round</TableHeadCell>
                 <TableHeadCell padding="px-2" title="Price">Price</TableHeadCell>
                 <TableHeadCell padding="px-2" title="Position">Position</TableHeadCell>
                 <TableHeadCell padding="px-2" title="Fantasy Points Total">FPT</TableHeadCell>
@@ -90,7 +91,7 @@
             </TableHead>
             <TableBody class="divide-y">
                 {#each playerRounds as round}
-                    <PlayerRoundRow {round} />
+                    <PlayerRoundRow {round} {playerView} />
                 {/each}
             </TableBody>
         </Table>

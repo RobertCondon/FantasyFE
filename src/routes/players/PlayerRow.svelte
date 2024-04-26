@@ -16,10 +16,7 @@
     }
 
     async function getRounds() {
-        console.log("getting rounds")
-        console.log(player.image_url)
         playerRounds = await fetchGet('player_rounds', { player_id: player.id })
-        console.log(playerRounds)
     }
 </script>
 
