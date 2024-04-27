@@ -29,6 +29,10 @@
         }));
     });
 
+    function getTeamName(teamId) {
+        return teams.find(team => team.id === teamId).name;
+    }
+
     async function findPlayers() {
         if (selected === 'all') {
             players = await fetchGet('players')
@@ -96,49 +100,51 @@
     }
 </script>
 
-<div style="display: flex">
-    <Card class="mr-3 h-[572px]">
-        <div style="margin-bottom: 2rem;" >
-            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Filters</h5>
-            <div style="display: flex; align-items: flex-end; margin-top: 2rem">
-                <label style="width: 20rem"> Name
-                    <Search placeholder="Search by name" hoverable={true} bind:value={searchTerm}></Search>
-                </label>
+<div style="display: flex;">
+    <div class="sticky-card">
+        <Card class="sticky-card mr-3 h-[572px]">
+            <div style="margin-bottom: 2rem;" >
+                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Filters</h5>
+                <div style="display: flex; align-items: flex-end; margin-top: 0.3rem">
+                    <label style="width: 20rem"> Name
+                        <Search placeholder="Search by name" hoverable={true} bind:value={searchTerm}></Search>
+                    </label>
+                </div>
+
+                <div style="display: flex; align-items: flex-end; margin-top: 0.3rem">
+                    <label style="width: 20rem"> Max Price
+                        <Search placeholder="Maximum price" hoverable={true} bind:value={maxPrice}></Search>
+                    </label>
+                </div>
+
+                <div style="width: 20rem; margin-top: 0.3rem">
+                    <Label>
+                        Teams
+                        <Select placeholder="Select team" class="mt-2" bind:value={selected} on:change={() => findPlayers()}>
+                            <option selected value="all">All</option>
+
+                            {#each teamSelection as { value, name }}
+                                <option {value}>{name}</option>
+                            {/each}
+                        </Select>
+                    </Label>
+                </div>
+
+                <div style="margin-top: 0.3rem">
+                    <Label>
+                        Positions
+                        <Select placeholder="Select current postion" class="mt-2" bind:value={selectedCurrentPosition}>
+                            <option selected value="any">Any</option>
+
+                            {#each currentPositions as { value, name }}
+                                <option {value}>{name}</option>
+                            {/each}
+                        </Select>
+                    </Label>
+                </div>
             </div>
-
-            <div style="display: flex; align-items: flex-end; margin-top: 2rem">
-                <label style="width: 20rem"> Max Price
-                    <Search placeholder="Maximum price" hoverable={true} bind:value={maxPrice}></Search>
-                </label>
-            </div>
-
-            <div style="width: 20rem; margin-top: 2rem">
-                <Label>
-                    Teams
-                    <Select placeholder="Select team" class="mt-2" bind:value={selected} on:change={() => findPlayers()}>
-                        <option selected value="all">All</option>
-
-                        {#each teamSelection as { value, name }}
-                            <option {value}>{name}</option>
-                        {/each}
-                    </Select>
-                </Label>
-            </div>
-
-            <div style="margin-top: 2rem">
-                <Label>
-                    Positions
-                    <Select placeholder="Select current postion" class="mt-2" bind:value={selectedCurrentPosition}>
-                        <option selected value="any">Any</option>
-
-                        {#each currentPositions as { value, name }}
-                            <option {value}>{name}</option>
-                        {/each}
-                    </Select>
-                </Label>
-            </div>
-        </div>
-    </Card>
+        </Card>
+    </div>
     <div class="table-container">
         <Table shadow striped={true} hoverable={true} divClass="my-table">
             <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
@@ -146,7 +152,8 @@
                 <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">All current pickable fantasy players. Click to see each round they have played..</p>
             </caption>
             <TableHead class="bg-[#FFFFFF]">
-                <TableHeadCell></TableHeadCell>
+                <TableHeadCell class="pl-4 pr-0"></TableHeadCell>
+                <TableHeadCell>Team</TableHeadCell>
                 <TableHeadCell on:click={() => sortTable('name')}>Name</TableHeadCell>
                 <TableHeadCell on:click={() => sortTable('cost')}>Price</TableHeadCell>
                 <TableHeadCell on:click={() => sortTable('owned_by')}>Owned By</TableHeadCell>
@@ -156,7 +163,7 @@
             </TableHead>
             <TableBody class="divide-y">
                 {#each $sortPlayers as player}
-                    <PlayerRow {player} />
+                    <PlayerRow {player} playerTeamName={getTeamName(player.team_id)} />
                 {/each}
             </TableBody>
         </Table>
@@ -164,4 +171,15 @@
 </div>
 
 <style>
+    .sticky-card {
+        position: fixed;   /* Makes the card stick to the viewport */
+        top: 100px;         /* Distance from the top of the viewport */
+        left: 20px;        /* Distance from the left side of the viewport */
+        width: 440px;      /* Set a specific width for the fixed card */
+    }
+
+.table-container {
+        margin-left: 300px;
+        width: calc(100% - 300px);
+    }
 </style>
